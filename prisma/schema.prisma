@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -17,7 +17,6 @@ enum TierName {
   Free
   Pro
   Enterprise
-
 }
 
 /**
@@ -29,7 +28,6 @@ model Tier {
   name  TierName @unique @default(Free)
   price Float
   users Users[]
-
 }
 
 /**
@@ -45,5 +43,4 @@ model Users {
   tier      Tier     @relation(fields: [tierId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
