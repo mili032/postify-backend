@@ -13,7 +13,7 @@ export class UsersService {
   private readonly saltRounds: number = 10;
 
   async create(data: CreateUserDto) {
-    const is_existing = await this.prisma.user.findUnique({
+    const is_existing = await this.prisma.users.findUnique({
       where: {
         email: data.email,
       },
@@ -28,7 +28,7 @@ export class UsersService {
       this.saltRounds,
     );
 
-    const created_user = await this.prisma.user.create({
+    const created_user = await this.prisma.users.create({
       data: {
         email: data.email,
         password: hashed_password,
@@ -71,7 +71,7 @@ export class UsersService {
       return response.error('Email i lozinka su obavezni.', 400);
     }
 
-    const found_user = await this.prisma.user.findUnique({
+    const found_user = await this.prisma.users.findUnique({
       where: {
         email: email,
       },

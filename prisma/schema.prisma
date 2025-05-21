@@ -27,13 +27,13 @@ model Tier {
   id    Int      @id @default(autoincrement())
   name  TierName @unique @default(Free)
   price Float
-  users User[]
+  users Users[]
 }
 
 /**
  * Ovo je glavni User model za aplikaciju, to jest onaj koji se koristi za login i registraciju.
  */
-model User {
+model Users {
   id        Int      @id @default(autoincrement())
   tierId    Int      @default(1)
   email     String   @unique
