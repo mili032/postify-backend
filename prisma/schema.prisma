@@ -1,10 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["myschema"]
 }
 
 /**
@@ -17,6 +19,8 @@ enum TierName {
   Free
   Pro
   Enterprise
+
+  @@schema("myschema")
 }
 
 /**
@@ -28,6 +32,8 @@ model Tier {
   name  TierName @unique @default(Free)
   price Float
   users Users[]
+
+  @@schema("myschema")
 }
 
 /**
@@ -43,4 +49,6 @@ model Users {
   tier      Tier     @relation(fields: [tierId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@schema("myschema")
 }
