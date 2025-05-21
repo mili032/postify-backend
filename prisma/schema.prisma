@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * Enum za različite tipove pretplate.
+ * Free - besplatan nivo
+ * Pro - plaćeni nivo
+ * Enterprise - nivo za preduzeća
+ */
+enum TierName {
+  Free
+  Pro
+  Enterprise
+}
+
+/**
+ * Ovo je model za Tier koji predstavlja različite nivoe pretplate.
+ * Svaki nivo ima svoje ime i cenu.
+ */
+model Tier {
+  id    Int      @id @default(autoincrement())
+  name  TierName @unique @default(Free)
+  price Float
+  users User[]
+}
+
+/**
+ * Ovo je glavni User model za aplikaciju, to jest onaj koji se koristi za login i registraciju.
+ */
+model User {
+  id        Int      @id @default(autoincrement())
+  tierId    Int      @default(1)
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  tier      Tier     @relation(fields: [tierId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
