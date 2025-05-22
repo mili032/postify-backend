@@ -4,6 +4,6 @@ export class User {
   firstName: string;
   lastName: string;
   tierId: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
