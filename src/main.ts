@@ -5,7 +5,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(`api/v1`);
   app.enableCors({
-    origin: ['http://localhost:3001', 'https://api.web-dev.rs'],
+    origin: [
+      'http://localhost:3001',
+      'https://postify-frontend-milijanovic2529-ligegsb4.leapcell.dev',
+    ],
   });
 
   await app.listen(process.env.PORT ?? 3000);
