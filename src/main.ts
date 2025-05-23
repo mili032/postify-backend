@@ -7,6 +7,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3001',
+      'http://192.168.0.101:3001',
       'https://postify-frontend-milijanovic2529-ligegsb4.leapcell.dev',
     ],
   });
