@@ -38,6 +38,6 @@ export class FacebookAuthController {
       await this.pagesService.savePages(userId, pages);
     }
 
-    return res.redirect(`http://localhost:3001/facebook`);
+    return res.redirect(`https://twibbio.com/facebook`);
   }
 }
