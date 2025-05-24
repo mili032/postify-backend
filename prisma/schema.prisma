@@ -40,15 +40,35 @@ model Tier {
  * Ovo je glavni User model za aplikaciju, to jest onaj koji se koristi za login i registraciju.
  */
 model Users {
-  id        Int      @id @default(autoincrement())
-  tierId    Int      @default(1)
-  email     String   @unique
-  password  String
-  firstName String
-  lastName  String
-  tier      Tier     @relation(fields: [tierId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  tierId       Int            @default(1)
+  email        String         @unique
+  password     String
+  firstName    String
+  lastName     String
+  tier         Tier           @relation(fields: [tierId], references: [id])
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  FacebookPage FacebookPage[]
 
+  @@schema("myschema")
+}
+
+/**
+ * Facebok model koji predstavlja korisnike koji se prijavljuju putem Facebook-a.
+ */
+model FacebookPage {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  pageId      String
+  name        String
+  accessToken String
+  tasks       String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user Users @relation(fields: [userId], references: [id])
+
+  @@unique([userId, pageId]) // jedan korisnik ne može dodati istu stranicu više puta
   @@schema("myschema")
 }

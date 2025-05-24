@@ -7,9 +7,10 @@ export class FacebookAuthService {
   constructor(private readonly httpService: HttpService) {}
 
   async exchangeCodeForAccessToken(code: string): Promise<string> {
-    const clientId = '1296600068696051';
-    const clientSecret = '42bbcaa03071496bbfa94dc706f270c0';
-    const redirectUri = 'https://tvoj-domen/api/auth/facebook/callback';
+    const client_id = process.env.FACEBOOK_APP_ID;
+    const client_secret = process.env.FACEBOOK_APP_SECRET;
+    const redirect_uri =
+      'https://64da-109-92-150-237.ngrok-free.app/api/v1/auth/facebook/callback';
 
     const response = await firstValueFrom(
       this.httpService.post(
@@ -17,9 +18,9 @@ export class FacebookAuthService {
         null,
         {
           params: {
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_uri: redirectUri,
+            client_id: client_id,
+            client_secret: client_secret,
+            redirect_uri: redirect_uri,
             code,
           },
         },
@@ -38,6 +39,6 @@ export class FacebookAuthService {
       }),
     );
 
-    return response.data;
+    return response.data.data;
   }
 }
